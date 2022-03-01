@@ -201,7 +201,9 @@ class Game extends React.Component{
     }
 }
 
-const words = ["VIVID","SHRUG","BASED"]
+const words = ['LIGHT','WRUNG','COULD','PERKY','MOUNT','WHACK','SUGAR','KNOLL',
+'CRIMP','WINCE','PRICK','ROBOT','POINT','PROXY','SHIRE','SOLAR','PANIC','TANGY','ABBEY','FAVOR','DRINK'
+,'QUERY','GORGE','CRANK','SLUMP','BANAL','TIGER','SIEGE','TRUSS','BOOST','REBUS'];
 ReactDOM.render(
     <Game />,
     document.getElementById("root")

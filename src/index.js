@@ -124,32 +124,32 @@ class Keyboard extends React.Component{
         return(
             <div>
                 <div className='keyRow'>
-                    <button onClick={(key) => this.props.handleInput("Q")}>Q</button>
-                    <button onClick={(key) => this.props.handleInput("W")}>W</button>
-                    <button onClick={(key) => this.props.handleInput("E")}>E</button>
-                    <button onClick={(key) => this.props.handleInput("R")}>R</button>
-                    <button onClick={(key) => this.props.handleInput("T")}>T</button>
-                    <button onClick={(key) => this.props.handleInput("Y")}>Y</button>
-                    <button onClick={(key) => this.props.handleInput("U")}>U</button>
-                    <button onClick={(key) => this.props.handleInput("I")}>I</button>
-                    <button onClick={(key) => this.props.handleInput("O")}>O</button>
-                    <button onClick={(key) => this.props.handleInput("P")}>P</button>
-                    <button onClick={(key) => this.props.handleInput("A")}>A</button>
-                    <button onClick={(key) => this.props.handleInput("S")}>S</button>
-                    <button onClick={(key) => this.props.handleInput("D")}>D</button>
-                    <button onClick={(key) => this.props.handleInput("F")}>F</button>
-                    <button onClick={(key) => this.props.handleInput("G")}>G</button>
-                    <button onClick={(key) => this.props.handleInput("H")}>H</button>
-                    <button onClick={(key) => this.props.handleInput("J")}>J</button>
-                    <button onClick={(key) => this.props.handleInput("K")}>K</button>
-                    <button onClick={(key) => this.props.handleInput("L")}>L</button>
-                    <button onClick={(key) => this.props.handleInput("Z")}>Z</button>
-                    <button onClick={(key) => this.props.handleInput("X")}>X</button>
-                    <button onClick={(key) => this.props.handleInput("C")}>C</button>
-                    <button onClick={(key) => this.props.handleInput("V")}>V</button>
-                    <button onClick={(key) => this.props.handleInput("B")}>B</button>
-                    <button onClick={(key) => this.props.handleInput("N")}>N</button>
-                    <button onClick={(key) => this.props.handleInput("M")}>M</button>
+                    <button className={this.props.keyStatus('Q')} onClick={(key) => this.props.handleInput("Q")}>Q</button>
+                    <button className={this.props.keyStatus('W')} onClick={(key) => this.props.handleInput("W")}>W</button>
+                    <button className={this.props.keyStatus('E')} onClick={(key) => this.props.handleInput("E")}>E</button>
+                    <button className={this.props.keyStatus('R')} onClick={(key) => this.props.handleInput("R")}>R</button>
+                    <button className={this.props.keyStatus('T')} onClick={(key) => this.props.handleInput("T")}>T</button>
+                    <button className={this.props.keyStatus('Y')} onClick={(key) => this.props.handleInput("Y")}>Y</button>
+                    <button className={this.props.keyStatus('U')} onClick={(key) => this.props.handleInput("U")}>U</button>
+                    <button className={this.props.keyStatus('I')} onClick={(key) => this.props.handleInput("I")}>I</button>
+                    <button className={this.props.keyStatus('O')} onClick={(key) => this.props.handleInput("O")}>O</button>
+                    <button className={this.props.keyStatus('P')} onClick={(key) => this.props.handleInput("P")}>P</button>
+                    <button className={this.props.keyStatus('A')} onClick={(key) => this.props.handleInput("A")}>A</button>
+                    <button className={this.props.keyStatus('S')} onClick={(key) => this.props.handleInput("S")}>S</button>
+                    <button className={this.props.keyStatus('D')} onClick={(key) => this.props.handleInput("D")}>D</button>
+                    <button className={this.props.keyStatus('F')} onClick={(key) => this.props.handleInput("F")}>F</button>
+                    <button className={this.props.keyStatus('G')} onClick={(key) => this.props.handleInput("G")}>G</button>
+                    <button className={this.props.keyStatus('H')} onClick={(key) => this.props.handleInput("H")}>H</button>
+                    <button className={this.props.keyStatus('J')} onClick={(key) => this.props.handleInput("J")}>J</button>
+                    <button className={this.props.keyStatus('K')} onClick={(key) => this.props.handleInput("K")}>K</button>
+                    <button className={this.props.keyStatus('L')} onClick={(key) => this.props.handleInput("L")}>L</button>
+                    <button className={this.props.keyStatus('Z')} onClick={(key) => this.props.handleInput("Z")}>Z</button>
+                    <button className={this.props.keyStatus('X')} onClick={(key) => this.props.handleInput("X")}>X</button>
+                    <button className={this.props.keyStatus('C')} onClick={(key) => this.props.handleInput("C")}>C</button>
+                    <button className={this.props.keyStatus('V')} onClick={(key) => this.props.handleInput("V")}>V</button>
+                    <button className={this.props.keyStatus('B')} onClick={(key) => this.props.handleInput("B")}>B</button>
+                    <button className={this.props.keyStatus('N')} onClick={(key) => this.props.handleInput("N")}>N</button>
+                    <button className={this.props.keyStatus('M')} onClick={(key) => this.props.handleInput("M")}>M</button>
                     <button onClick={(key) => this.props.handleInput("del")}>DEL</button>
                     <button onClick={(key) => this.props.handleInput("enter")}>ENT</button>
                 </div>
@@ -166,6 +166,7 @@ class Game extends React.Component{
         this.state = {
             wordToGuess: word,
             guesses: Array(5).fill(""),
+            guessedLetters: [],
             turn: 0,
         };
     }
@@ -190,12 +191,30 @@ class Game extends React.Component{
         });
     }
 
+    keyStatus(key){
+        let guesses = this.state.guesses;
+        let wordToGuess = this.state.wordToGuess;
+        let turn = this.state.turn;
+        for(let g = 0; g < turn;g++){
+            for(let c = 0; c < guesses[g].length;c++){
+                if(key == guesses[g].charAt(c)){
+                    if(wordToGuess.indexOf(key) != -1)
+                    {
+                        return 'correctKey';
+                    }
+                    return 'guessedKey';
+                }
+            }
+        }
+        return '';
+    }
+
     render(){
         return(
             <div>
                 <h3 className='title'>react-WORDLE</h3>
                 <Board wordToGuess = {this.state.wordToGuess} guesses={this.state.guesses} turn = {this.state.turn}/>
-                <Keyboard handleInput = {(key) => this.handleInput(key)}/>
+                <Keyboard handleInput = {(key) => this.handleInput(key)} keyStatus={(key => this.keyStatus(key))}/>
             </div>
         );
     }

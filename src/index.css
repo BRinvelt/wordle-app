@@ -7,7 +7,7 @@ body{
 }
 
 .initial{
-    background: grey;
+    background: rgb(170, 170, 170);
     width: 50px;
     height: 50px;
     margin: 10px;
@@ -32,7 +32,7 @@ body{
 }
 
 .current{
-    background: lightgray;
+    background: rgba(170, 170, 170, 0.5);
 }
 
 button{
@@ -42,4 +42,11 @@ button{
 
 .keyRow{
     margin: 0 auto;
+}
+
+.guessedKey{
+    background: gray;
+}
+.correctKey{
+    background: green;
 }
